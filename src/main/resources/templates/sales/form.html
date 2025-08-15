@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::section})}">
+<section class="mt-3">
+	<h2>Record Sale</h2>
+	<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+	<form th:action="@{/sales}" th:object="${saleRequest}" method="post" class="row g-3">
+		<div class="col-md-8">
+			<label class="form-label">Book</label>
+			<select class="form-select" th:field="*{bookId}" required>
+				<option value="" disabled selected>Choose...</option>
+				<option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title + ' (Stock: ' + b.stockQuantity + ')'}"></option>
+			</select>
+		</div>
+		<div class="col-md-4">
+			<label class="form-label">Quantity</label>
+			<input class="form-control" type="number" min="1" th:field="*{quantity}" required />
+		</div>
+		<div class="col-12">
+			<button class="btn btn-primary" type="submit">Save</button>
+			<a class="btn btn-secondary" th:href="@{/sales}">Cancel</a>
+		</div>
+	</form>
+</section>
+</html>
+
+

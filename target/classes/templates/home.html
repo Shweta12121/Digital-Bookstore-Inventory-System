@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::section})}">
+<section class="mt-3">
+	<h2>Welcome to Digital Bookstore</h2>
+	<p class="text-muted">Manage inventory, record sales, and view reports.</p>
+
+	<div th:if="${#lists.isEmpty(lowStockBooks)}">
+		<div class="alert alert-success">All stocks are healthy.</div>
+	</div>
+	<div th:if="${!#lists.isEmpty(lowStockBooks)}">
+		<div class="alert alert-warning">Low-stock alerts (less than 5):</div>
+		<table class="table table-sm table-striped">
+			<thead>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Stock</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="b : ${lowStockBooks}">
+				<td th:text="${b.title}"></td>
+				<td th:text="${b.author}"></td>
+				<td class="low-stock" th:text="${b.stockQuantity}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+</html>
+
+
